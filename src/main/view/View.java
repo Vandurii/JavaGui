@@ -21,7 +21,7 @@ public class View extends JFrame {
     }
 
     public void init() {
-        mouseListener = new ML();
+        mouseListener = new ML(this);
 
         this.setUndecorated(true);
         this.addMouseListener(mouseListener);
