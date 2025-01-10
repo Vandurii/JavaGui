@@ -87,10 +87,10 @@ public class ML extends MouseAdapter implements MouseMotionListener {
             currentEdge = Edge.rightTop;
         }else if(bottomEdge && rightEdge){
             cursor = Cursor.SE_RESIZE_CURSOR;
-            currentEdge = Edge.bottomRight;
+            currentEdge = Edge.rightBottom;
         }else if(bottomEdge && leftEdge){
             cursor = Cursor.SW_RESIZE_CURSOR;
-            currentEdge = Edge.bottomLeft;
+            currentEdge = Edge.leftBottom;
         }else if(leftEdge){
             cursor = Cursor.W_RESIZE_CURSOR;
             currentEdge = Edge.left;
@@ -133,11 +133,11 @@ public class ML extends MouseAdapter implements MouseMotionListener {
                 height -= dy;
                 width += dx;
                 break;
-            case Edge.bottomRight:
+            case Edge.rightBottom:
                 height += dy;
                 width += dx;
                 break;
-            case Edge.bottomLeft:
+            case Edge.leftBottom:
                 width -= dx;
                 startX += dx;
                 height += dy;
@@ -165,6 +165,7 @@ public class ML extends MouseAdapter implements MouseMotionListener {
         view.setBounds(startX, startY, width, height);
         view.setWindowWidth(width);
         view.setWindowHeight(height);
+        view.refresh();
     }
 
     public void reset(){
