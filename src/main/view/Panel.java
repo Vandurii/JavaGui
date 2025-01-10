@@ -17,7 +17,7 @@ public class Panel extends JPanel {
     public Panel(int width, int height){
         super.setLayout(null);
         super.setSize(width, height);
-        super.setBackground(THEME_COLOR);
+        super.setBackground(themeColor);
 
         this.display = Display.none;
         this.align = Align.left;
