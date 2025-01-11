@@ -34,7 +34,10 @@ public class ML extends MouseAdapter implements MouseMotionListener {
     public void mouseMoved(MouseEvent e){
         x = e.getX();
         y = e.getY();
+
+        if(!view.isMaximized()){
         scanEdge();
+        }
     }
 
     @Override
@@ -60,8 +63,10 @@ public class ML extends MouseAdapter implements MouseMotionListener {
     public void mouseDragged(MouseEvent e) {
         Point cPosS = e.getLocationOnScreen();
 
-        moveWindow(cPosS);
-        resizeWindow(cPosS);
+        if(!view.isMaximized()) {
+            moveWindow(cPosS);
+            resizeWindow(cPosS);
+        }
     }
 
     public void moveWindow(Point cPosS){
@@ -162,7 +167,7 @@ public class ML extends MouseAdapter implements MouseMotionListener {
         if(width < minWinWidth) return;
         if(height < minWinHeight) return;
 
-        view.setBounds(startX, startY, width, height);
+        view.setLocation(startX, startY);
         view.setWindowWidth(width);
         view.setWindowHeight(height);
         view.refresh();

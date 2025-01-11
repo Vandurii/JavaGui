@@ -17,7 +17,6 @@ public class Panel extends JPanel {
     public Panel(int width, int height){
         super.setLayout(null);
         super.setSize(width, height);
-        super.setBackground(themeColor);
 
         this.display = Display.none;
         this.align = Align.left;
@@ -53,6 +52,14 @@ public class Panel extends JPanel {
                 case Display.block:
                     c.setLocation(0, nextCompY);
                     nextCompY += c.getHeight();
+                    break;
+
+                case Display.max:
+                    int width = super.getWidth() - nextCompX;
+                    int height = super.getHeight() - nextCompY;
+                    c.setSize(width, height);
+                    System.out.println(width);
+                    System.out.println(height);
                     break;
             }
         }
