@@ -199,7 +199,7 @@ public class View extends JFrame {
             int g = 0;
             int b = 0;
 
-            if(i < 85){
+            if(i < 90){
                 r = i;
             }else if(i < 170 ){
                 g = i;
