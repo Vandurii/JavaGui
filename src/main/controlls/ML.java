@@ -71,6 +71,8 @@ public class ML extends MouseAdapter implements MouseMotionListener {
 
     public void moveWindow(Point cPosS){
         if(currentEdge != Edge.none) return;
+        if(y > titleBarHeight) return;
+
         view.setLocation(cPosS.x - (int) x, cPosS.y - (int) y);
     }
 

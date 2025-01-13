@@ -11,14 +11,18 @@ public class Constant {
     public static int minWinWidth = 100;
     public static int minWinHeight = 100;
 
+    public static int colorPickerSize = 250;
+    public static int pointerSize = 5;
+
     // Theme
     public static float winAlpha = 0.9f;
-    public static Color themeColor = Color.gray;//new Color(0.01f, 0.01f, 0.01f, alpha);
+    public static Color firstThemeColor = new Color(0.01f, 0.01f, 0.01f, 1);
+    public static Color secondThemeColor = Color.white;
     public static Color borderLineColor = new Color(89, 89, 89);
     public static int borderLineSize = 1;
 
     public static int initialPadding = 5;
-    public static int butHovScalar = 50;
+    public static int buttonThreshold = 200;
 
     // Toolbar
     public static int toolbarHeight = 40;
@@ -41,6 +45,10 @@ public class Constant {
     public static final String resizeButtonPath = Helper.getFromRes("view.png");
     public static final String exitButtonPath = Helper.getFromRes("turnOff.png");
     public static final String hideButtonPath = Helper.getFromRes("hide.png");
+    public static final String closeButtonPath = Helper.getFromRes("close.png");
+    public static final String pointerButtonPath = Helper.getFromRes("pointer.png");
     public static final String iconPath = Helper.getFromRes("icon.jpg");
     public static final String soundPath = Helper.getFromRes("focus.wav");
+    public static final String colorWheelsPath = Helper.getFromRes("colorWheels.png");
+    public static final String colorSquaresPath = Helper.getFromRes("colorsSquare.png");
 }
