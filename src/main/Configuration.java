@@ -1,6 +1,6 @@
 package main;
 
-import main.view.ColorWrapper;
+import main.view.components.colorPicker.ColorWrapper;
 
 import java.awt.*;
 
@@ -17,11 +17,12 @@ public class Configuration {
     public static int pointerSize = 5;
 
     // Theme
-    public static float winAlpha = 1f;
-    public static ColorWrapper firstThemeColor = new ColorWrapper(new Color(0.5f, 0.5f, 0.5f, 1));
-    public static ColorWrapper secondThemeColor = new ColorWrapper(Color.orange);
+    public static float winAlphaComposite = 0.5f;
+    public static ColorWrapper primaryThemeColor = new ColorWrapper(new Color(0.5f, 0.5f, 0.5f, winAlphaComposite));
+    public static ColorWrapper secondaryThemeColor = new ColorWrapper(new Color(0.9f, 0.2f, 0.2f, winAlphaComposite));
     public static ColorWrapper borderLineColor = new ColorWrapper(new Color(89, 89, 89));
-    public static int borderLineSize = 1;
+
+    public static int borderLineWidth = 1;
 
     public static int initialPadding = 5;
     public static int buttonThreshold = 200;

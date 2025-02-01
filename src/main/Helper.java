@@ -1,8 +1,8 @@
 package main;
 
-import main.view.ColorPicker;
-import main.view.ColorWrapper;
-import main.view.MethodBody;
+import main.view.components.colorPicker.ColorPicker;
+import main.view.components.colorPicker.ColorWrapper;
+import main.view.interfaces.MethodBody;
 import main.view.View;
 
 import javax.imageio.ImageIO;
@@ -43,6 +43,17 @@ public class Helper {
 
     public static JButton createTextButton(String text, MethodBody method){
         JButton button = new JButton(text);
+        button.setSize(button.getPreferredSize());
+        button.setBorder(null);
+        button.setFocusPainted(false);
+        addMethod(button, method);
+
+        return button;
+    }
+
+    public static JButton createShrinkTextButton(String text, MethodBody method){
+        JButton button = new JButton(text);
+        button.setMargin(new Insets(0,0,0,0));
         button.setSize(button.getPreferredSize());
         button.setBorder(null);
         button.setFocusPainted(false);
