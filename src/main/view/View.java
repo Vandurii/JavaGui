@@ -1,16 +1,17 @@
 package main.view;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 import main.Helper;
 import main.controlls.ML;
+import main.view.components.Panel;
+import main.view.enums.AlignHor;
+import main.view.enums.AlignVer;
+import main.view.enums.Display;
 
-import static main.Constant.*;
+import static main.Configuration.*;
 
 public class View extends JFrame {
 
@@ -21,14 +22,11 @@ public class View extends JFrame {
     private boolean isMaximized;
 
     private ML mouseListener;
-    private ML secMouseListener;
 
     private Panel mainPanel;
     private Panel titleBar;
     private Panel toolbar;
     private Panel display;
-
-    private ColorPicker firstColorPicker;
 
     public View(){
         windowWidth = INITIAL_WINDOW_WIDTH;
@@ -39,13 +37,41 @@ public class View extends JFrame {
     public void init() {
         mouseListener = new ML(this);
 
+        titleBar = createTitleBar();
+        toolbar = createToolbar();
+        display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
+
+        mainPanel = new Panel(windowWidth, windowHeight);
+        mainPanel.setBorder(new MatteBorder(borderLineSize, borderLineSize, borderLineSize, borderLineSize, borderLineColor.color));
+        mainPanel.setDisplay(Display.block);
+
+        mainPanel.add(titleBar);
+        mainPanel.add(toolbar);
+        mainPanel.add(display);
+
+        this.setUndecorated(true);
+        this.addMouseListener(mouseListener);
+        this.addMouseMotionListener(mouseListener);
+        this.setSize(windowWidth, windowHeight);
+        this.setOpacity(winAlpha);
+        this.setLocationRelativeTo(null);
+        this.setAlwaysOnTop(true);
+        this.setVisible(true);
+
+        this.add(mainPanel);
+
+        resetThemeColor();
+    }
+
+    private Panel createTitleBar(){
         titleBar = new Panel(windowWidth, titleBarHeight);
-        titleBar.setBorder(new MatteBorder(borderLineSize, borderLineSize, borderLineSize, borderLineSize, borderLineColor));
+        titleBar.setBorder(new MatteBorder(borderLineSize, borderLineSize, borderLineSize, borderLineSize, borderLineColor.color));
         titleBar.setDisplay(Display.flex);
-        titleBar.setAlign(Align.right);
+        titleBar.setAlignVer(AlignVer.right);
+        titleBar.setAlignHor(AlignHor.center);
 
         MethodBody exitPressed = () ->{System.exit(0);};
-        JButton exitButton = Helper.createButton(titleBarButWidth,titleBarButHeight, titleBarButScale, exitButtonPath, exitPressed);
+        JButton exitButton = Helper.createImageButton(titleBarButWidth,titleBarButHeight, titleBarButScale, exitButtonPath, exitPressed);
         titleBar.add(exitButton);
 
         MethodBody resizeWindow = () ->{
@@ -71,57 +97,70 @@ public class View extends JFrame {
             isMaximized = !isMaximized;
         };
 
-        JButton resizeButton = Helper.createButton(titleBarButWidth,titleBarButHeight, titleBarButScale, resizeButtonPath, resizeWindow);
+        JButton resizeButton = Helper.createImageButton(titleBarButWidth,titleBarButHeight, titleBarButScale, resizeButtonPath, resizeWindow);
         titleBar.add(resizeButton);
 
         MethodBody minimizePressed = () ->{this.setState(ColorPicker.ICONIFIED);};
-        JButton minimizeButton = Helper.createButton(titleBarButWidth,titleBarButHeight, titleBarButScale, hideButtonPath, minimizePressed);
+        JButton minimizeButton = Helper.createImageButton(titleBarButWidth,titleBarButHeight, titleBarButScale, hideButtonPath, minimizePressed);
         titleBar.add(minimizeButton);
 
+        return titleBar;
+    }
+
+    private Panel createToolbar(){
         toolbar = new Panel(windowWidth , toolbarHeight);
-        toolbar.setBorder(new MatteBorder(0, borderLineSize, 0, borderLineSize, borderLineColor));
+        toolbar.setBorder(new MatteBorder(0, borderLineSize, 0, borderLineSize, borderLineColor.color));
         toolbar.setDisplay(Display.flex);
-        toolbar.setAlign(Align.left);
+        toolbar.setAlignVer(AlignVer.left);
 
         MethodBody empty = () -> {System.out.println("I'm just empty method body");};
-        JButton addButton = Helper.createButton(toolbarButWidth, toolbarButHeight, toolbarButScale, deleteButtonPath, empty);
+        JButton addButton = Helper.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, deleteButtonPath, addPressed());
         toolbar.add(addButton);
 
-        JButton editButton = Helper.createButton(toolbarButWidth, toolbarButHeight, toolbarButScale, editButtonPath, empty);
+        JButton editButton = Helper.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, editButtonPath, empty);
         toolbar.add(editButton);
 
-        JButton deleteButton = Helper.createButton(toolbarButWidth, toolbarButHeight, toolbarButScale, deleteButtonPath, empty);
+        JButton deleteButton = Helper.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, deleteButtonPath, empty);
         toolbar.add(deleteButton);
 
-        MethodBody settingsPressed = () -> {setttings();};
-        JButton settingsButton = Helper.createButton(toolbarButWidth, toolbarButHeight, toolbarButScale, settingsButtonPath, settingsPressed);
+        JButton settingsButton = Helper.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, settingsButtonPath, settingsPressed());
         toolbar.add(settingsButton);
 
+        return toolbar;
+    }
+
+    private MethodBody settingsPressed() {
+        MethodBody createSettingMenu = () ->{
+            JButton first = Helper.createTextButton("Primary Theme Color", Helper.createMethodForColor(firstThemeColor, this));
+            JButton second = Helper.createTextButton("Secondary Theme Color", Helper.createMethodForColor(secondThemeColor, this));
+            JButton third = Helper.createTextButton("Border Line Color", Helper.createMethodForColor(borderLineColor, this)); // todo make it work
+
+            display.add(first);
+            display.add(second);
+            display.add(third);
+        };
+
+        return () ->{creteDisplay(createSettingMenu);};
+    }
+
+    private MethodBody addPressed(){
+        MethodBody clearDisplay = () ->{
+
+        };
+
+        return () -> creteDisplay(clearDisplay);
+    }
+
+    public void creteDisplay(MethodBody method){
+        mainPanel.remove(display);
         display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
-        display.setBorder(new MatteBorder(0, borderLineSize, borderLineSize, borderLineSize, borderLineColor));
-        display.setDisplay(Display.flex);
-        display.setAlign(Align.left);
+        display.setBorder(new MatteBorder(0, borderLineSize, borderLineSize, borderLineSize, borderLineColor.color));
+        display.setDisplay(Display.block);
+        display.setAlignVer(AlignVer.left);
 
-        mainPanel = new Panel(windowWidth, windowHeight);
-        mainPanel.setBorder(new MatteBorder(borderLineSize, borderLineSize, borderLineSize, borderLineSize, borderLineColor));
-        mainPanel.setDisplay(Display.block);
-
-        mainPanel.add(titleBar);
-        mainPanel.add(toolbar);
-        mainPanel.add(display);
-
-        this.setUndecorated(true);
-        this.addMouseListener(mouseListener);
-        this.addMouseMotionListener(mouseListener);
-        this.setSize(windowWidth, windowHeight);
-        this.setOpacity(winAlpha);
-        this.setLocationRelativeTo(null);
-        this.setAlwaysOnTop(true);
-        this.setVisible(true);
-
-        this.add(mainPanel);
-
+        method.cast();
         resetThemeColor();
+        mainPanel.add(display);
     }
 
     public int getWindowWidth() {
@@ -151,30 +190,6 @@ public class View extends JFrame {
         display.calcComp();
     }
 
-    public void setttings(){
-        MethodBody m = () -> {
-            try{
-                BufferedImage bufImage = ImageIO.read(new File(colorSquaresPath));
-                if(firstColorPicker == null) {
-                    firstColorPicker =  new ColorPicker(colorPickerSize, colorPickerSize, bufImage, this);
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-            resetThemeColor();
-        };
-
-        JLabel text = new JLabel("Change the Color: ");
-        text.setSize(120, 30);
-        display.add(text);
-
-        JButton button = Helper.createButton(20, 20, 20, colorWheelsPath, m);
-        button.setFocusable(false);
-        display.add(button);
-
-    }
-
     public boolean isMaximized(){
         return isMaximized;
     }
@@ -183,9 +198,5 @@ public class View extends JFrame {
         Helper.resetColor(this, firstThemeColor);
         Helper.resetColor(display, secondThemeColor);
         Helper.resetColor(toolbar, secondThemeColor);
-    }
-
-    public void deleteFirstCP(){
-        firstColorPicker = null;
     }
 }

@@ -1,8 +1,10 @@
 package main;
 
+import main.view.ColorWrapper;
+
 import java.awt.*;
 
-public class Constant {
+public class Configuration {
 
     // Window
     public static final int INITIAL_WINDOW_WIDTH = 800;
@@ -15,10 +17,10 @@ public class Constant {
     public static int pointerSize = 5;
 
     // Theme
-    public static float winAlpha = 0.9f;
-    public static Color firstThemeColor = new Color(0.01f, 0.01f, 0.01f, 1);
-    public static Color secondThemeColor = Color.white;
-    public static Color borderLineColor = new Color(89, 89, 89);
+    public static float winAlpha = 1f;
+    public static ColorWrapper firstThemeColor = new ColorWrapper(new Color(0.5f, 0.5f, 0.5f, 1));
+    public static ColorWrapper secondThemeColor = new ColorWrapper(Color.orange);
+    public static ColorWrapper borderLineColor = new ColorWrapper(new Color(89, 89, 89));
     public static int borderLineSize = 1;
 
     public static int initialPadding = 5;

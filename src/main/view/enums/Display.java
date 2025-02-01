@@ -1,4 +1,4 @@
-package main.view;
+package main.view.enums;
 
 public enum Display {
     none,

@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 
-import static main.Constant.*;
+import static main.Configuration.*;
 
 public class ML extends MouseAdapter implements MouseMotionListener {
     private View view;
