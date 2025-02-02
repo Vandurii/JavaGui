@@ -4,7 +4,8 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 
-import main.Helper;
+import main.view.components.colorPicker.ThemeColor;
+import main.view.prefabs.Prefabs;
 import main.controlls.MainWindowML;
 import main.view.components.Panel;
 import main.view.components.toolbar.Toolbar;
@@ -54,8 +55,8 @@ public class View extends JFrame {
         this.setUndecorated(true);
         this.addMouseListener(mouseListener);
         this.addMouseMotionListener(mouseListener);
+        this.setBackground(new Color(1f, 1f, 1f, 0f));
         this.setSize(windowWidth, windowHeight);
-
         this.setLocationRelativeTo(null);
         this.setAlwaysOnTop(true);
         this.setVisible(true);
@@ -78,7 +79,7 @@ public class View extends JFrame {
         mainPanel.add(display);
     }
 
-    public void refresh(){
+    public void relocalize(){
         setSize(windowWidth, windowHeight);
         titleBar.setSize(windowWidth, titleBarHeight);
         titleBar.calcComp();
@@ -98,9 +99,11 @@ public class View extends JFrame {
     }
 
     public void resetThemeColor(){
-        Helper.resetColor(this, primaryThemeColor);
-        Helper.resetColor(display, secondaryThemeColor);
-        Helper.resetColor(toolbar, secondaryThemeColor);
+        ThemeColor.resetColor(titleBar, primaryThemeColor);
+        ThemeColor.resetColor(display, secondaryThemeColor);
+        ThemeColor.resetColor(toolbar, secondaryThemeColor);
+        this.setOpacity(winAlphaComposite);
+        mainPanel.repaint();
     }
 
     public void memoWindowDimension(){

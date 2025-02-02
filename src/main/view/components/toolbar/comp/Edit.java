@@ -1,6 +1,6 @@
 package main.view.components.toolbar.comp;
 
-import main.Helper;
+import main.view.prefabs.Prefabs;
 import main.view.View;
 import main.view.components.colorPicker.ColorWrapper;
 import main.view.interfaces.MethodBody;
@@ -14,7 +14,7 @@ import static main.Configuration.*;
 public class Edit {
     public static JButton getInstance(View view){
         //return Helper.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, editButtonPath, editPressed(view));
-        return Helper.createShrinkTextButton("Edit", editPressed(view));
+        return Prefabs.createShrinkTextButton("Edit", editPressed(view));
     }
 
     private static MethodBody editPressed(View view) {

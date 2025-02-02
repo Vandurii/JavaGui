@@ -1,6 +1,6 @@
 package main.view.components.colorPicker;
 
-import main.Helper;
+import main.view.prefabs.Prefabs;
 import main.controlls.ColorPickerML;
 import main.view.interfaces.MethodBody;
 import main.view.View;
@@ -34,7 +34,7 @@ public class ColorPicker extends JFrame {
         titleBar.setAlignHor(AlignHor.center);
 
         MethodBody closeMethod = this::destroy;
-        JButton closeButton = Helper.createImageButton(titleBarButWidth, titleBarButHeight, titleBarButScale, closeButtonPath, closeMethod);
+        JButton closeButton = Prefabs.createImageButton(titleBarButWidth, titleBarButHeight, titleBarButScale, closeButtonPath, closeMethod);
         titleBar.add(closeButton);
 
         BufferedImage bufImage = null;
@@ -73,7 +73,7 @@ public class ColorPicker extends JFrame {
 
         this.add(mainPanel);
 
-        Helper.resetColor(this, primaryThemeColor);
+        ThemeColor.resetColor(this, primaryThemeColor);
     }
 
     public void destroy(){

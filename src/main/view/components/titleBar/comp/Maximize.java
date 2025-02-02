@@ -1,6 +1,6 @@
 package main.view.components.titleBar.comp;
 
-import main.Helper;
+import main.view.prefabs.Prefabs;
 import main.view.interfaces.MethodBody;
 import main.view.View;
 
@@ -13,7 +13,7 @@ import static main.Configuration.resizeButtonPath;
 public class Maximize {
 
     public static JButton getInstance(View view){
-        return Helper.createImageButton(titleBarButWidth,titleBarButHeight, titleBarButScale, resizeButtonPath, resizeWindow(view));
+        return Prefabs.createImageButton(titleBarButWidth,titleBarButHeight, titleBarButScale, resizeButtonPath, resizeWindow(view));
     }
 
   private static MethodBody resizeWindow(View view){
@@ -32,7 +32,7 @@ public class Maximize {
             }
 
             view.centerWindow();
-            view.refresh();
+            view.relocalize();
             view.switchMaximized();
     };}
 }

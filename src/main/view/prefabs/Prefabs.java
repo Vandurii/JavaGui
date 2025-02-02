@@ -1,9 +1,7 @@
-package main;
+package main.view.prefabs;
 
-import main.view.components.colorPicker.ColorPicker;
-import main.view.components.colorPicker.ColorWrapper;
+import main.view.components.colorPicker.ThemeColor;
 import main.view.interfaces.MethodBody;
-import main.view.View;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,13 +14,7 @@ import java.io.File;
 
 import static main.Configuration.*;
 
-public class Helper {
-
-    private static ColorPicker picker;
-
-    public static String getFromRes(String name){
-        return resPath + name;
-    }
+public class Prefabs {
 
     public static JButton createImageButton(int width, int height, int scale, String imagePath, MethodBody method){
         JButton button = new JButton();
@@ -36,6 +28,7 @@ public class Helper {
         button.setIcon(new ImageIcon(image.getScaledInstance(scale, scale, Image.SCALE_SMOOTH)));
         button.setBorder(null);
         button.setFocusPainted(false);
+        button.setOpaque(false);
         addMethod(button, method);
 
         return button;
@@ -46,6 +39,7 @@ public class Helper {
         button.setSize(button.getPreferredSize());
         button.setBorder(null);
         button.setFocusPainted(false);
+        button.setOpaque(false);
         addMethod(button, method);
 
         return button;
@@ -55,8 +49,9 @@ public class Helper {
         JButton button = new JButton(text);
         button.setMargin(new Insets(0,0,0,0));
         button.setSize(button.getPreferredSize());
-        button.setBorder(null);
+        button.setOpaque(false);
         button.setFocusPainted(false);
+        button.setBorder(null);
         addMethod(button, method);
 
         return button;
@@ -73,6 +68,7 @@ public class Helper {
             @Override
             public void mouseEntered(MouseEvent e) {
                 Color color = button.getParent().getBackground();
+                button.setOpaque(true);
 
                 if(color.getRed() > buttonThreshold && color.getGreen() > buttonThreshold && color.getBlue() > buttonThreshold){
                     color = color.darker();
@@ -85,30 +81,10 @@ public class Helper {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                Color c = button.getParent().getBackground();
-                button.setBackground(c);
+                button.setOpaque(false);
+                ThemeColor.resetParentColor(button);
             }
         });
-    }
-
-    public static void resetColor(Component c, ColorWrapper color){
-        if(c instanceof Container container){
-            for(Component com: container.getComponents()){
-                resetColor(com, color);
-            }
-        }
-
-        c.setBackground(color.color);
-    }
-
-    public static MethodBody createMethodForColor(ColorWrapper colorWrapper, View view){
-        return () -> {
-            if(picker != null){
-                picker.destroy();
-            }
-
-         picker = new ColorPicker(colorPickerSize, colorPickerSize, colorSquaresPath, view, colorWrapper);
-        };
     }
 }
 

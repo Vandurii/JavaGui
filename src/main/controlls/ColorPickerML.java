@@ -1,6 +1,7 @@
 package main.controlls;
 
-import main.Helper;
+import main.view.components.colorPicker.ThemeColor;
+import main.view.prefabs.Prefabs;
 import main.view.components.colorPicker.ColorPicker;
 import main.view.components.colorPicker.ColorWrapper;
 import main.view.View;
@@ -68,7 +69,7 @@ public class ColorPickerML extends ML {
         color.addAlpha(new Color(image.getRGB(posX, posY)));;
 
         view.resetThemeColor();
-        Helper.resetColor(pickerFrame, primaryThemeColor);
+        ThemeColor.resetColor(pickerFrame, primaryThemeColor);
         pointer.setLocation(posX, posY);
     }
 }

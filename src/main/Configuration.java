@@ -1,6 +1,7 @@
 package main;
 
 import main.view.components.colorPicker.ColorWrapper;
+import main.tools.Pather;
 
 import java.awt.*;
 
@@ -41,17 +42,17 @@ public class Configuration {
 
     // Paths
     public static final String resPath = "src/main/res/";
-    public static final String addButtonPath = Helper.getFromRes("add.png");
-    public static final String editButtonPath = Helper.getFromRes("edit.png");
-    public static final String deleteButtonPath = Helper.getFromRes("delete.png");
-    public static final String settingsButtonPath = Helper.getFromRes("settings.png");
-    public static final String resizeButtonPath = Helper.getFromRes("view.png");
-    public static final String exitButtonPath = Helper.getFromRes("turnOff.png");
-    public static final String hideButtonPath = Helper.getFromRes("hide.png");
-    public static final String closeButtonPath = Helper.getFromRes("close.png");
-    public static final String pointerButtonPath = Helper.getFromRes("pointer.png");
-    public static final String iconPath = Helper.getFromRes("icon.jpg");
-    public static final String soundPath = Helper.getFromRes("focus.wav");
-    public static final String colorWheelsPath = Helper.getFromRes("colorWheels.png");
-    public static final String colorSquaresPath = Helper.getFromRes("colorsSquare.png");
+    public static final String addButtonPath = Pather.getFromRes("add.png");
+    public static final String editButtonPath = Pather.getFromRes("edit.png");
+    public static final String deleteButtonPath = Pather.getFromRes("delete.png");
+    public static final String settingsButtonPath = Pather.getFromRes("settings.png");
+    public static final String resizeButtonPath = Pather.getFromRes("view.png");
+    public static final String exitButtonPath = Pather.getFromRes("turnOff.png");
+    public static final String hideButtonPath = Pather.getFromRes("hide.png");
+    public static final String closeButtonPath = Pather.getFromRes("close.png");
+    public static final String pointerButtonPath = Pather.getFromRes("pointer.png");
+    public static final String iconPath = Pather.getFromRes("icon.jpg");
+    public static final String soundPath = Pather.getFromRes("focus.wav");
+    public static final String colorWheelsPath = Pather.getFromRes("colorWheels.png");
+    public static final String colorSquaresPath = Pather.getFromRes("colorWheels.png");
 }
