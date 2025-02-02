@@ -1,9 +1,8 @@
 package main.controlls;
 
 import main.view.components.colorPicker.ThemeColor;
-import main.view.prefabs.Prefabs;
 import main.view.components.colorPicker.ColorPicker;
-import main.view.components.colorPicker.ColorWrapper;
+import main.tools.saver.SaveColor;
 import main.view.View;
 
 import javax.swing.*;
@@ -15,12 +14,12 @@ import static main.Configuration.*;
 
 public class ColorPickerML extends ML {
     private ColorPicker pickerFrame;
-    private ColorWrapper color;
+    private SaveColor color;
     private BufferedImage image;
     private View view;
     private JButton pointer;
 
-    public ColorPickerML(ColorPicker pickerFrame, Image image, View view, JButton pointer, ColorWrapper color){
+    public ColorPickerML(ColorPicker pickerFrame, Image image, View view, JButton pointer, SaveColor color){
         BufferedImage bufImage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_RGB);
         Graphics2D graph = bufImage.createGraphics();
         graph.drawImage(image, 0, 0, null);
@@ -67,9 +66,9 @@ public class ColorPickerML extends ML {
         }
 
         color.addAlpha(new Color(image.getRGB(posX, posY)));;
-
         view.resetThemeColor();
         ThemeColor.resetColor(pickerFrame, primaryThemeColor);
+
         pointer.setLocation(posX, posY);
     }
 }

@@ -17,7 +17,7 @@ public class Toolbar {
 
     public static Panel getInstance(View view) {
         Panel toolbar = new Panel(view.getWindowWidth(), toolbarHeight);
-        toolbar.setBorder(new MatteBorder(0,borderLineWidth, 0,borderLineWidth, borderLineColor.color));
+        toolbar.setBorder(new MatteBorder(0,borderLineWidth, 0,borderLineWidth, borderLineColor.getValue()));
         toolbar.setDisplay(Display.flex);
         toolbar.setAlignVer(AlignVer.left);
 

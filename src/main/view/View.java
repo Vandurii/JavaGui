@@ -3,9 +3,9 @@ package main.view;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.io.*;
 
 import main.view.components.colorPicker.ThemeColor;
-import main.view.prefabs.Prefabs;
 import main.controlls.MainWindowML;
 import main.view.components.Panel;
 import main.view.components.toolbar.Toolbar;
@@ -45,7 +45,7 @@ public class View extends JFrame {
         display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
 
         mainPanel = new Panel(windowWidth, windowHeight);
-        mainPanel.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.color));
+        mainPanel.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         mainPanel.setDisplay(Display.block);
 
         mainPanel.add(titleBar);
@@ -58,7 +58,7 @@ public class View extends JFrame {
         this.setBackground(new Color(1f, 1f, 1f, 0f));
         this.setSize(windowWidth, windowHeight);
         this.setLocationRelativeTo(null);
-        this.setAlwaysOnTop(true);
+        this.setAlwaysOnTop(alwaysOnTop.getValue());
         this.setVisible(true);
 
         this.add(mainPanel);
@@ -69,7 +69,7 @@ public class View extends JFrame {
     public void switchDisplay(MethodBody method){
         mainPanel.remove(display);
         display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
-        display.setBorder(new MatteBorder(0, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.color));
+        display.setBorder(new MatteBorder(0, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         display.setDisplay(Display.block);
         display.setAlignVer(AlignVer.left);
 
@@ -90,6 +90,8 @@ public class View extends JFrame {
         display.calcComp();
     }
 
+
+
     public boolean isMaximized(){
         return isMaximized;
     }
@@ -98,11 +100,17 @@ public class View extends JFrame {
         this.isMaximized = !isMaximized;
     }
 
+    public void switchOnTop(){
+        alwaysOnTop.setValue(!alwaysOnTop.getValue());
+
+        this.setAlwaysOnTop(alwaysOnTop.getValue());
+    }
+
     public void resetThemeColor(){
         ThemeColor.resetColor(titleBar, primaryThemeColor);
         ThemeColor.resetColor(display, secondaryThemeColor);
         ThemeColor.resetColor(toolbar, secondaryThemeColor);
-        this.setOpacity(winAlphaComposite);
+        this.setOpacity(winAlphaComposite.getValue());
         mainPanel.repaint();
     }
 

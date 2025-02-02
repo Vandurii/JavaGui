@@ -1,12 +1,16 @@
 package main.view.prefabs;
 
+import main.view.View;
 import main.view.components.colorPicker.ThemeColor;
 import main.view.interfaces.MethodBody;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -36,6 +40,7 @@ public class Prefabs {
 
     public static JButton createTextButton(String text, MethodBody method){
         JButton button = new JButton(text);
+        button.setFont( settingsFont);
         button.setSize(button.getPreferredSize());
         button.setBorder(null);
         button.setFocusPainted(false);
@@ -85,6 +90,36 @@ public class Prefabs {
                 ThemeColor.resetParentColor(button);
             }
         });
+    }
+
+    public static JSlider createSlider(View view) {
+        int startValue = (int)(winAlphaComposite.getValue() * 100);
+
+        JSlider slider = new JSlider(0, 100, startValue);
+        slider.setSize(sliderWidth, sliderHeight);
+        slider.setOpaque(false);
+
+        ChangeListener changeListener = e -> {
+            int value = slider.getValue();
+            value = Math.max(value, minOpacityValue);
+            winAlphaComposite.setValue(value / 100f);
+            primaryThemeColor.refresh();
+            secondaryThemeColor.refresh();
+            view.resetThemeColor();
+        };
+
+        slider.addChangeListener(changeListener);
+        return slider;
+    }
+
+    public static JCheckBox createBox(View view) {
+        JCheckBox box = new JCheckBox();
+        box.setSelected(alwaysOnTop.getValue());
+        box.setOpaque(false);
+        box.setSize(checkBoxSize, checkBoxSize);
+        box.addActionListener(e -> view.switchOnTop());
+
+        return box;
     }
 }
 

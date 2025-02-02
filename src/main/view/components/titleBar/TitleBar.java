@@ -17,7 +17,7 @@ public class TitleBar {
 
     public static Panel getInstance(View view){
         Panel titleBar = new Panel(view.getWindowWidth(), titleBarHeight);
-        titleBar.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.color));
+        titleBar.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         titleBar.setDisplay(Display.flex);
         titleBar.setAlignVer(AlignVer.right);
         titleBar.setAlignHor(AlignHor.center);

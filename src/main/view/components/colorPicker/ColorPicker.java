@@ -8,6 +8,7 @@ import main.view.components.Panel;
 import main.view.enums.AlignHor;
 import main.view.enums.AlignVer;
 import main.view.enums.Display;
+import main.tools.saver.SaveColor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,13 +23,13 @@ import static main.Configuration.*;
 public class ColorPicker extends JFrame {
     private Image image;
 
-    public ColorPicker(int width, int height, String imagePath, View view, ColorWrapper color) {
+    public ColorPicker(int width, int height, String imagePath, View view, SaveColor color) {
         Panel mainPanel = new Panel(width, height);
-        mainPanel.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.color));
+        mainPanel.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         mainPanel.setDisplay(Display.block);
 
         main.view.components.Panel titleBar = new main.view.components.Panel(width, titleBarHeight);
-        titleBar.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.color));
+        titleBar.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         titleBar.setDisplay(Display.flex);
         titleBar.setAlignVer(AlignVer.right);
         titleBar.setAlignHor(AlignHor.center);
@@ -68,6 +69,7 @@ public class ColorPicker extends JFrame {
         this.setAlwaysOnTop(true);
         this.addMouseListener(mouseListener);
         this.addMouseMotionListener(mouseListener);
+        this.setOpacity(winAlphaComposite.getValue());
         this.setSize(width, height);
         this.setVisible(true);
 

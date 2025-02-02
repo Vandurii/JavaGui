@@ -1,5 +1,6 @@
 package main.view.components.titleBar.comp;
 
+import main.tools.saver.Saver;
 import main.view.prefabs.Prefabs;
 import main.view.interfaces.MethodBody;
 import main.view.View;
@@ -15,6 +16,9 @@ public class Exit {
     }
 
     private static MethodBody exitPressed(View view){
-        return () -> System.exit(0);
+        return () -> {
+            new Saver().save();
+            System.exit(0);
+        };
     }
 }
