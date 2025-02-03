@@ -16,7 +16,7 @@ public class Configuration {
     public static int minWinWidth = 100;
     public static int minWinHeight = 100;
 
-    public static int colorPickerSize = 250;
+    public static int colorPickerSize = 300;
     public static int pointerSize = 5;
 
     // Theme
@@ -55,8 +55,7 @@ public class Configuration {
     public static final String pointerButtonPath = Pather.getFromRes("pointer.png");
     public static final String iconPath = Pather.getFromRes("icon.jpg");
     public static final String soundPath = Pather.getFromRes("focus.wav");
-    public static final String colorWheelsPath = Pather.getFromRes("colorWheels.png");
-    public static final String colorSquaresPath = Pather.getFromRes("colorsSquare.png");
+    public static final String colorWheelsPath = Pather.getFromRes("colorWheel.png");
 
     // Settings
     public static Font settingsFont = new Font("Arial", Font.BOLD, 15);

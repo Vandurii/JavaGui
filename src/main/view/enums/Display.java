@@ -4,5 +4,5 @@ public enum Display {
     none,
     flex,
     block,
-    max
+    maxWidth
 }

@@ -7,7 +7,7 @@ import main.tools.saver.SaveColor;
 import java.awt.*;
 
 import static main.Configuration.colorPickerSize;
-import static main.Configuration.colorSquaresPath;
+import static main.Configuration.colorWheelsPath;
 
 public class ThemeColor {
     private static ColorPicker picker;
@@ -40,7 +40,7 @@ public class ThemeColor {
                 picker.destroy();
             }
 
-            picker = new ColorPicker(colorPickerSize, colorPickerSize, colorSquaresPath, view, colorWrapper);
+            picker = new ColorPicker(colorPickerSize, colorPickerSize, colorWheelsPath, view, colorWrapper);
         };
     }
 }

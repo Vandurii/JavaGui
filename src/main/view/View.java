@@ -3,7 +3,6 @@ package main.view;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
-import java.io.*;
 
 import main.view.components.colorPicker.ThemeColor;
 import main.controlls.MainWindowML;
@@ -70,8 +69,8 @@ public class View extends JFrame {
         mainPanel.remove(display);
         display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
         display.setBorder(new MatteBorder(0, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
-        display.setDisplay(Display.block);
-        display.setAlignVer(AlignVer.left);
+        display.setDisplay(Display.flex);
+        display.setAlignVer(AlignVer.center);
 
         method.cast();
         resetThemeColor();
