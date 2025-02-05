@@ -8,6 +8,7 @@ import main.view.components.colorPicker.ThemeColor;
 import main.controlls.MainWindowML;
 import main.view.components.Panel;
 import main.view.components.toolbar.Toolbar;
+import main.view.enums.AlignHor;
 import main.view.enums.AlignVer;
 import main.view.enums.Display;
 import main.view.components.titleBar.TitleBar;
@@ -69,8 +70,9 @@ public class View extends JFrame {
         mainPanel.remove(display);
         display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
         display.setBorder(new MatteBorder(0, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
-        display.setDisplay(Display.flex);
+        display.setDisplay(Display.maxWidth);
         display.setAlignVer(AlignVer.center);
+        display.setAlignHor(AlignHor.center);
 
         method.cast();
         resetThemeColor();
@@ -88,8 +90,6 @@ public class View extends JFrame {
         display.setSize(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
         display.calcComp();
     }
-
-
 
     public boolean isMaximized(){
         return isMaximized;

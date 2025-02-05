@@ -38,6 +38,7 @@ public class Prefabs {
 
     public static JButton createTextButton(String text, MethodBody method){
         JButton button = new JButton(text);
+        button.setMargin(new Insets(0,0,0,0));
         button.setFont( settingsFont);
         button.setSize(button.getPreferredSize());
         button.setBorder(null);

@@ -9,17 +9,15 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import static main.Configuration.*;
-
 public class Panel extends JPanel {
     private Display display;
     private AlignVer alignVer;
     private AlignHor alignHor;
 
-    private int nextCompX;
-    private int nextCompY;
-
-    private int padding;
+    private int paddingBetweenX = 20;
+    private int paddingBetweenY = 0;
+    private int paddingx;
+    private int paddingy;
 
     public Panel(int width, int height){
         super.setLayout(null);
@@ -28,102 +26,91 @@ public class Panel extends JPanel {
         this.display = Display.none;
         this.alignVer = AlignVer.left;
         this.alignHor = AlignHor.top;
-
-        this.padding = initialPadding;
-    }
-
-    @Override
-    public Component add(Component c){
-        super.add(c);
-        calcComp();
-        return c;
     }
 
     public void calcComp() {
-        nextCompX = 0;
-        nextCompY = 0;
-
         for (Component c : super.getComponents()) {
             switch (display) {
-                case Display.flex:
-                    if (alignVer == AlignVer.left) {
-                        c.setLocation(nextCompX + padding, getY(c));
-                        nextCompX += c.getWidth() + padding;
-                    } else if (alignVer == AlignVer.right) {
-                        nextCompX += c.getWidth() + padding;
-                        c.setLocation(super.getWidth() - nextCompX, getY(c));
-                    } else if(alignVer == AlignVer.center){
-                        reCalcFlexCenter(padding, padding);
-                    }
-                    break;
-
-                case Display.block:
-                    c.setLocation(getX(c), nextCompY);
-                    nextCompY += c.getHeight();
-                    break;
-
                 case Display.maxWidth:
-                    int width = c.getParent().getWidth() - nextCompX;
-                    c.setSize(width, c.getHeight());
-                    c.setLocation(0, nextCompY);
-                    nextCompY += c.getHeight();
+                    c.setSize(getWidth(), c.getHeight());
+                case Display.flex:
+                case Display.block:
+                    reCalc();
                     break;
             }
         }
     }
 
-    public int getX(Component c){
-        int x= 0;
-
-        if(alignVer == AlignVer.right) {
-            x = c.getParent().getWidth() - c.getWidth();
-        }else if(alignVer == AlignVer.left){
-            x = 0;
-        }else if(alignVer == AlignVer.center){
-            x = (c.getParent().getWidth() - c.getWidth()) / 2;
-        }
-
-        return x;
-    }
-
-    public int getY(Component c){
-        int y = 0;
-
-        if(alignHor == AlignHor.bottom) {
-            y = c.getParent().getHeight() - c.getHeight();
-        }else if(alignHor == AlignHor.top){
-            y = 0;
-        }else if(alignHor == AlignHor.center){
-            y = (c.getParent().getHeight() - c.getHeight()) / 2;
-        }
-
-        return y;
-    }
-
-    public void reCalcFlexCenter(int paddingX, int paddingY){
-        int currentWidth = 0;
-        int maxWidth = getWidth();
+    public void reCalc(){
         List<List<Component>> compList = new ArrayList<>();
-        Component[] components = getComponents();
 
         int index = 0;
-        for(Component c: components){
-            int nextWidth = c.getWidth() + padding;
-            if(currentWidth + nextWidth < maxWidth){
+        if(display == Display.block || display == Display.maxWidth) index = -1;
+        int currentWidth = 0;
+        int maxWidth = getWidth();
+        List<Component> components = List.of(getComponents());
+        Iterator<Component> i = components.iterator();
+        while(i.hasNext()){
+            Component c = i.next();
+            int nextWidth = c.getWidth();
+            if(i.hasNext()) nextWidth += paddingBetweenX;
+
+            if(currentWidth + nextWidth < maxWidth && display != Display.block){
                 currentWidth += nextWidth;
-                getList(index, compList).add(c);
             }else{
                 currentWidth = nextWidth;
                 index++;
-                getList(index, compList).add(c);
             }
+
+            getOrCreateList(index, compList).add(c);
         }
 
         int nextY = 0;
-        for(List<Component> list: compList){
-            setLocation(list, nextY);
-            nextY += findHighest(list);
+        if(alignHor == AlignHor.top){
+            nextY = 0;
+        }else if(alignHor == AlignHor.bottom){
+            nextY = getHeight() - findHighest(compList.getFirst());
+        }else if(alignHor == AlignHor.center){
+            nextY = (getHeight() /2)- (getCompHeight(compList) / 2);
         }
+
+        Iterator<List<Component>> it = compList.iterator();
+        while(it.hasNext()){
+            List<Component> list = it.next();
+            setCompLocation(list, nextY);
+            if(alignHor == AlignHor.top || alignHor == AlignHor.center) {
+                nextY += findHighest(list);
+                if(it.hasNext()) nextY += paddingBetweenY;
+            }else if(alignHor == AlignHor.bottom){
+                nextY -= findHighest(list);
+                if(it.hasNext())nextY -= paddingBetweenY;
+            }
+        }
+    }
+
+    public int getCompHeight(List<List<Component>> list){
+        int totalHeight = 0;
+        Iterator<List<Component>> i = list.iterator();
+        while(i.hasNext()){
+            List<Component> compList = i.next();
+            totalHeight += findHighest(compList);
+            if(i.hasNext()) totalHeight += paddingBetweenY;
+        }
+
+        return totalHeight;
+    }
+
+    public int getCompWidth(List<Component> list){
+
+        int totalWidth = 0;
+        Iterator<Component> i = list.iterator();
+        while(i.hasNext()){
+            Component c = i.next();
+            totalWidth += c.getWidth();
+            if(i.hasNext()) totalWidth += paddingBetweenX;
+        }
+
+        return totalWidth;
     }
 
     public int findHighest(List<Component> list){
@@ -135,30 +122,42 @@ public class Panel extends JPanel {
         return max;
     }
 
-    public int getCompWidth(List<Component> list){
-        int totalWidth = 0;
-        for(Component c: list){
-            totalWidth += c.getWidth();
+    public void setCompLocation(List<Component> compList, int y){
+        int nextCompX = 0;
+        if(alignVer == AlignVer.left){
+            nextCompX = 0;
+        }else if(alignVer == AlignVer.right){
+            nextCompX = getWidth() - compList.getFirst().getWidth();
+        }else if(alignVer == AlignVer.center){
+            int freeSpace = getWidth() - getCompWidth(compList);
+            nextCompX = freeSpace / 2;
         }
 
-        return totalWidth;
-    }
-
-    public void setLocation(List<Component> compList, int y){
-        int margin = (getWidth() - getCompWidth(compList)) / 2;
-        int width = margin;
-        for(Component c: compList){
-            c.setLocation(width, y);
-            width += c.getWidth();
+        for(Component comp: compList){
+            comp.setLocation(nextCompX, y);
+            if(alignVer == AlignVer.left || alignVer == AlignVer.center) {
+                nextCompX += comp.getWidth();
+                nextCompX += paddingBetweenX;
+            }else if(alignVer == AlignVer.right){
+                nextCompX -= comp.getWidth();
+                nextCompX -= paddingBetweenX;
+            }
         }
     }
 
-    public List<Component> getList(int index, List<List<Component>> comList){
+    public List<Component> getOrCreateList(int index, List<List<Component>> comList){
         if(comList.size() - 1 < index){
             comList.add(new ArrayList<>());
         }
 
         return comList.get(index);
+    }
+
+    @Override
+    public Component add(Component c){
+        super.add(c);
+        calcComp();
+        return c;
     }
 
     public void setDisplay(Display display){

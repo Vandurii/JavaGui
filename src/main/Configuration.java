@@ -61,7 +61,7 @@ public class Configuration {
     public static Font settingsFont = new Font("Arial", Font.BOLD, 15);
     public static int minOpacityValue = 5;
     public static int sliderWidth = 100;
-    public static int sliderHeight = 50;
+    public static int sliderHeight = 30;
     public static SaveBoolean<Boolean> alwaysOnTop = new SaveBoolean<>("onTop", false);
     public static int checkBoxSize = 20;
     public static String settingsFile = "settings.txt";
