@@ -17,11 +17,12 @@ import static main.Configuration.*;
 public class Toolbar {
 
     public static Panel getInstance(View view) {
-        Panel toolbar = new Panel(view.getWindowWidth(), toolbarHeight);
+        Panel toolbar = new Panel(view.getWindowWidth(), toolbarHeight, toolBarPaddingX, toolBarPaddingY, toolBarPaddingBetweenX, toolBarPaddingBetweenY);
         toolbar.setBorder(new MatteBorder(0,borderLineWidth, 0,borderLineWidth, borderLineColor.getValue()));
         toolbar.setDisplay(Display.flex);
         toolbar.setAlignVer(AlignVer.left);
         toolbar.setAlignHor(AlignHor.top);
+        toolbar.setWrap(false);
 
         toolbar.add(Add.getInstance(view));
         toolbar.add(Edit.getInstance(view));

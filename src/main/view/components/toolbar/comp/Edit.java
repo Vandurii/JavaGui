@@ -9,7 +9,7 @@ import javax.swing.*;
 public class Edit {
     public static JButton getInstance(View view){
         //return Helper.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, editButtonPath, editPressed(view));
-        return Prefabs.createShrinkTextButton("Edit", editPressed(view));
+        return Prefabs.createTextButton("Edit", editPressed(view));
     }
 
     private static MethodBody editPressed(View view) {

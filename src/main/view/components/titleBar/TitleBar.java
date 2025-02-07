@@ -16,11 +16,12 @@ import static main.Configuration.*;
 public class TitleBar {
 
     public static Panel getInstance(View view){
-        Panel titleBar = new Panel(view.getWindowWidth(), titleBarHeight);
+        Panel titleBar = new Panel(view.getWindowWidth(), titleBarHeight, titleBarPaddingX, titleBarPaddingY, titleBarPaddingBetweenX, titleBarPaddingBetweenY);
         titleBar.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         titleBar.setDisplay(Display.flex);
         titleBar.setAlignVer(AlignVer.right);
         titleBar.setAlignHor(AlignHor.center);
+        titleBar.setWrap(false);
 
         titleBar.add(Exit.getInstance(view));
         titleBar.add(Maximize.getInstance(view));

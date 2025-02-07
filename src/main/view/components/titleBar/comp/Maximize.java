@@ -32,7 +32,7 @@ public class Maximize {
             }
 
             view.centerWindow();
-            view.relocalize();
+            view.setCompLocation();
             view.switchMaximized();
     };}
 }

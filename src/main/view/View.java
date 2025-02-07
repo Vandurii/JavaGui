@@ -68,10 +68,10 @@ public class View extends JFrame {
 
     public void switchDisplay(MethodBody method){
         mainPanel.remove(display);
-        display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
+        display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight, displayPaddingX, displayPaddingY, displayPaddingBetweenX, displayPaddingBetweenY);
         display.setBorder(new MatteBorder(0, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
-        display.setDisplay(Display.maxWidth);
-        display.setAlignVer(AlignVer.center);
+        display.setDisplay(Display.blockInline);
+        display.setAlignVer(AlignVer.left);
         display.setAlignHor(AlignHor.center);
 
         method.cast();
@@ -80,7 +80,7 @@ public class View extends JFrame {
         mainPanel.add(display);
     }
 
-    public void relocalize(){
+    public void setCompLocation(){
         setSize(windowWidth, windowHeight);
         titleBar.setSize(windowWidth, titleBarHeight);
         titleBar.calcComp();

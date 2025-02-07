@@ -16,7 +16,7 @@ public class Settings {
 
     public static JButton getInstance(View view){
        // return Helper.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, settingsButtonPath, settingsPressed(view));
-        return Prefabs.createShrinkTextButton("Settings", settingsPressed(view));
+        return Prefabs.createTextButton("Settings", settingsPressed(view));
     }
 
     private static MethodBody settingsPressed(View view) {
@@ -26,16 +26,12 @@ public class Settings {
             JButton borderColor = Prefabs.createTextButton("Border Line Color", ThemeColor.createMethodForColor(borderLineColor, view)); // todo make it work
             JSlider opacitySlider = Prefabs.createSlider(view);
             JCheckBox onTopBox = Prefabs.createBox(view);
-            JButton s = Prefabs.createTextButton("Primary Thessssssssssme Color", ThemeColor.createMethodForColor(primaryThemeColor, view));
-            JButton fg = Prefabs.createTextButton("Primary Thesssssssdddddddddddddddddddddddddddddddddddddddsssme Color", ThemeColor.createMethodForColor(primaryThemeColor, view));
 
+            view.getDisplay().add(onTopBox);
             view.getDisplay().add(primaryColor);
             view.getDisplay().add(secondaryColor);
             view.getDisplay().add(borderColor);
             view.getDisplay().add(opacitySlider);
-            view.getDisplay().add(onTopBox);
-            view.getDisplay().add(s);
-            view.getDisplay().add(fg);
         };
 
         return () ->{view.switchDisplay(createSettingMenu);};

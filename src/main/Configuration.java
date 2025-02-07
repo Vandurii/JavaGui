@@ -27,20 +27,37 @@ public class Configuration {
 
     public static int borderLineWidth = 1;
 
-    public static int initialPadding = 5;
     public static int buttonThreshold = 200;
 
     // Toolbar
+    public static int toolBarPaddingX = 10;
+    public static int toolBarPaddingY = 0;
+    public static int toolBarPaddingBetweenX = 10;
+    public static int toolBarPaddingBetweenY = 0;
     public static int toolbarHeight = 40;
     public static int toolbarButWidth = 30;
     public static int toolbarButHeight = 30;
     public static int toolbarButScale = 20;
 
     // Titlebar
+    public static int titleBarPaddingX = 10;
+    public static int titleBarPaddingY = 0;
+    public static int titleBarPaddingBetweenX = 10;
+    public static int titleBarPaddingBetweenY = 0;
     public static int titleBarHeight = 40;
     public static int titleBarButWidth = 25;
     public static int titleBarButHeight = 25;
     public static int titleBarButScale = 20;
+
+    // Display
+    public static int displayPaddingX = 30;
+    public static int displayPaddingY = 0;
+    public static int displayPaddingBetweenX = 50;
+    public static int displayPaddingBetweenY = 0;
+
+    // ColorPicker
+    public static int pickerPaddingX = 5;
+    public static int pickerPaddingY = 0;
 
     // Paths
     public static final String resPath = "src/main/res/";

@@ -10,7 +10,7 @@ public class Add {
 
     public static JButton getInstance(View view){
         //return Helper.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, addButtonPath, addPressed(view));
-        return Prefabs.createShrinkTextButton("Add", addPressed(view));
+        return Prefabs.createTextButton("Add", addPressed(view));
     }
 
     private static MethodBody addPressed(View view) {

@@ -161,7 +161,7 @@ public class MainWindowML extends ML {
         view.setLocation(startX, startY);
         view.setWindowWidth(width);
         view.setWindowHeight(height);
-        view.relocalize();
+        view.setCompLocation();
     }
 
     public void reset(){

@@ -28,7 +28,7 @@ public class ColorPicker extends JFrame {
         mainPanel.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         mainPanel.setDisplay(Display.block);
 
-        main.view.components.Panel titleBar = new main.view.components.Panel(width, titleBarHeight);
+        main.view.components.Panel titleBar = new Panel(width, titleBarHeight, pickerPaddingX, pickerPaddingY);
         titleBar.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         titleBar.setDisplay(Display.flex);
         titleBar.setAlignVer(AlignVer.right);

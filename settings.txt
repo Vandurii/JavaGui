@@ -1,5 +1,5 @@
-opacity:float:0.54
-primaryColor:color:2:97:128:137
-secondaryColor:color:172:156:141:137
-borderColor:color:26:96:0:140
+opacity:float:1.0
+primaryColor:color:214:138:2:255
+secondaryColor:color:249:247:248:255
+borderColor:color:0:0:0:255
 onTop:boolean:false

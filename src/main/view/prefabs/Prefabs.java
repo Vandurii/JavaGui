@@ -39,23 +39,11 @@ public class Prefabs {
     public static JButton createTextButton(String text, MethodBody method){
         JButton button = new JButton(text);
         button.setMargin(new Insets(0,0,0,0));
-        button.setFont( settingsFont);
+        button.setFont(settingsFont);
         button.setSize(button.getPreferredSize());
         button.setBorder(null);
         button.setFocusPainted(false);
         button.setOpaque(false);
-        addMethod(button, method);
-
-        return button;
-    }
-
-    public static JButton createShrinkTextButton(String text, MethodBody method){
-        JButton button = new JButton(text);
-        button.setMargin(new Insets(0,0,0,0));
-        button.setSize(button.getPreferredSize());
-        button.setOpaque(false);
-        button.setFocusPainted(false);
-        button.setBorder(null);
         addMethod(button, method);
 
         return button;
