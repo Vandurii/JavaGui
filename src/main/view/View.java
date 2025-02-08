@@ -72,7 +72,7 @@ public class View extends JFrame {
         display.setBorder(new MatteBorder(0, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         display.setDisplay(Display.blockInline);
         display.setAlignVer(AlignVer.left);
-        display.setAlignHor(AlignHor.center);
+        display.setAlignHor(AlignHor.top);
 
         method.cast();
         resetThemeColor();
@@ -97,12 +97,6 @@ public class View extends JFrame {
 
     public void switchMaximized(){
         this.isMaximized = !isMaximized;
-    }
-
-    public void switchOnTop(){
-        alwaysOnTop.setValue(!alwaysOnTop.getValue());
-
-        this.setAlwaysOnTop(alwaysOnTop.getValue());
     }
 
     public void resetThemeColor(){

@@ -51,7 +51,7 @@ public class Configuration {
 
     // Display
     public static int displayPaddingX = 30;
-    public static int displayPaddingY = 0;
+    public static int displayPaddingY = 100;
     public static int displayPaddingBetweenX = 50;
     public static int displayPaddingBetweenY = 0;
 
@@ -80,6 +80,6 @@ public class Configuration {
     public static int sliderWidth = 100;
     public static int sliderHeight = 30;
     public static SaveBoolean<Boolean> alwaysOnTop = new SaveBoolean<>("onTop", false);
-    public static int checkBoxSize = 20;
+    public static int checkBoxSize = 25;
     public static String settingsFile = "settings.txt";
 }

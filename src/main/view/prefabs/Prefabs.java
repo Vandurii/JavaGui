@@ -1,18 +1,25 @@
 package main.view.prefabs;
 
+import main.tools.LayoutManager;
+import main.tools.saver.SaveBoolean;
+import main.tools.saver.SaveFloat;
 import main.view.View;
 import main.view.components.colorPicker.ThemeColor;
 import main.view.interfaces.MethodBody;
+import main.view.components.Panel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
+
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.*;
+import java.util.List;
 
 import static main.Configuration.*;
 
@@ -79,36 +86,53 @@ public class Prefabs {
         });
     }
 
-    public static JSlider createSlider(View view) {
-        int startValue = (int)(winAlphaComposite.getValue() * 100);
+    public static JSlider createSlider(int width, int height, SaveFloat<Float> saveFloat, MethodBody method) {
+        int startValue = (int)(saveFloat.getValue() * 100);
 
         JSlider slider = new JSlider(0, 100, startValue);
-        slider.setSize(sliderWidth, sliderHeight);
-        slider.setBackground(Color.red);
-        slider.setForeground(Color.red);
+        slider.setSize(width, height);
         slider.setOpaque(false);
 
         ChangeListener changeListener = e -> {
-            int value = slider.getValue();
-            value = Math.max(value, minOpacityValue);
-            winAlphaComposite.setValue(value / 100f);
-            primaryThemeColor.refresh();
-            secondaryThemeColor.refresh();
-            view.resetThemeColor();
+            saveFloat.setValue(slider.getValue() / 100f);
+            method.cast();
         };
-
         slider.addChangeListener(changeListener);
         return slider;
     }
 
-    public static JCheckBox createBox(View view) {
+    public static JCheckBox createDisabledBox(int size, SaveBoolean<Boolean> saveBol, MethodBody method) {
         JCheckBox box = new JCheckBox();
-        box.setSelected(alwaysOnTop.getValue());
+        box.setSelected(saveBol.getValue());
         box.setOpaque(false);
-        box.setSize(checkBoxSize, checkBoxSize);
-        box.addActionListener(e -> view.switchOnTop());
+        box.setSize(size, size);
+        box.addActionListener(e -> method.cast());
 
         return box;
+    }
+
+    public static JCheckBox createDisabledBox(int size) {
+        JCheckBox box = new JCheckBox();
+        box.setFocusable(false);
+        box.setEnabled(false);
+        box.setOpaque(false);
+        box.setSize(size, size);
+
+        return box;
+    }
+
+    public static Panel createPanel(int paddingX, int paddingBetweenX, Component ...components){
+        List<Component>  componentList = Arrays.asList(components);
+        int height = LayoutManager.findHighest(componentList);
+        int width = LayoutManager.getMinPanelWidth(paddingX, paddingBetweenX, componentList);
+
+        Panel panel = new Panel(width, height);
+        panel.setOpaque(false);
+        for(Component c: components){
+            panel.add(c);
+        }
+
+        return panel;
     }
 }
 
