@@ -11,7 +11,7 @@ public class SaveColor<T extends Color> extends Savable<T> {
     }
 
     public void addAlpha(Color color){
-        setValue((T) new Color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, winAlphaComposite.getValue()));
+        setValue((T) new Color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, winAlphaComposite.getValue() / 100f));
     }
 
     public void refresh(){

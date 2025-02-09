@@ -3,24 +3,28 @@ package main.view.components.colorPicker;
 import main.view.View;
 import main.view.interfaces.MethodBody;
 import main.tools.saver.SaveColor;
+import main.view.components.Panel;
 
 import java.awt.*;
 
-import static main.Configuration.colorPickerSize;
-import static main.Configuration.colorWheelsPath;
+import static main.Configuration.*;
 
-public class ThemeColor {
+public class ThemeManager {
     private static ColorPicker picker;
 
-    public static void resetColorSingle(Component c, SaveColor color){
+    public static void resetColorSingle(Component c, SaveColor<Color> color){
         c.setBackground(color.getValue());
     }
 
-    public static void resetColor(Component c, SaveColor color){
+    public static void resetColor(Component c, SaveColor<Color> color){
         if(c instanceof Container container){
             for(Component com: container.getComponents()){
                 resetColor(com, color);
             }
+        }
+
+        if(c instanceof Panel panel){
+            if(panel.hasBorder()) panel.repaintBorder();
         }
 
         c.setBackground(color.getValue());
@@ -34,7 +38,7 @@ public class ThemeColor {
         }
     }
 
-    public static MethodBody createMethodForColor(SaveColor colorWrapper, View view){
+    public static MethodBody createMethodForColor(SaveColor<Color> colorWrapper, View view){
         return () -> {
             if(picker != null){
                 picker.destroy();

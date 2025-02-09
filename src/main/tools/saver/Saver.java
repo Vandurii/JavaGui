@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileWriter;
 
 import static main.Configuration.*;
-import static main.Configuration.alwaysOnTop;
 
 public class Saver {
     public void save() {
@@ -22,12 +21,15 @@ public class Saver {
                     case "SaveFloat":
                         bufWriter.write(String.format("%s:float:%s\n",s.idName, s.value));
                         break;
+                    case "SaveInt":
+                        bufWriter.write(String.format("%s:int:%s\n",s.idName, s.value));
+                        break;
                     case "SaveColor":
                         Color tmp = (Color)s.value;
                         bufWriter.write(String.format("%s:color:%s:%s:%s:%s\n",s.idName, tmp.getRed(), tmp.getGreen(), tmp.getBlue(), tmp.getAlpha()));
                         break;
                     case "SaveBoolean":
-                        bufWriter.write(String.format("%s:boolean:%s\n",s.idName, alwaysOnTop.getValue()));
+                        bufWriter.write(String.format("%s:boolean:%s\n",s.idName, s.value));
                         break;
                 }
             }

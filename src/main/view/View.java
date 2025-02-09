@@ -1,10 +1,9 @@
 package main.view;
 
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
 
-import main.view.components.colorPicker.ThemeColor;
+import main.view.components.colorPicker.ThemeManager;
 import main.controlls.MainWindowML;
 import main.view.components.Panel;
 import main.view.components.toolbar.Toolbar;
@@ -43,9 +42,10 @@ public class View extends JFrame {
         titleBar = TitleBar.getInstance(this);
         toolbar = Toolbar.getInstance(this);
         display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
+        display.addBorder(false, true, true, true);
 
         mainPanel = new Panel(windowWidth, windowHeight);
-        mainPanel.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
+        mainPanel.addBorder(false, true, true, true);
         mainPanel.setDisplay(Display.block);
 
         mainPanel.add(titleBar);
@@ -69,10 +69,10 @@ public class View extends JFrame {
     public void switchDisplay(MethodBody method){
         mainPanel.remove(display);
         display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight, displayPaddingX, displayPaddingY, displayPaddingBetweenX, displayPaddingBetweenY);
-        display.setBorder(new MatteBorder(0, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
         display.setDisplay(Display.blockInline);
         display.setAlignVer(AlignVer.left);
         display.setAlignHor(AlignHor.top);
+        display.addBorder(false, true, true, true);
 
         method.cast();
         resetThemeColor();
@@ -100,10 +100,10 @@ public class View extends JFrame {
     }
 
     public void resetThemeColor(){
-        ThemeColor.resetColor(titleBar, primaryThemeColor);
-        ThemeColor.resetColor(display, secondaryThemeColor);
-        ThemeColor.resetColor(toolbar, secondaryThemeColor);
-        this.setOpacity(winAlphaComposite.getValue());
+        ThemeManager.resetColor(titleBar, primaryThemeColor);
+        ThemeManager.resetColor(display, secondaryThemeColor);
+        ThemeManager.resetColor(toolbar, secondaryThemeColor);
+        this.setOpacity(winAlphaComposite.getValue() / 100f);
         mainPanel.repaint();
     }
 

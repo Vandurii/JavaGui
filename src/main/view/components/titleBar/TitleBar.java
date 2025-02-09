@@ -5,9 +5,9 @@ import main.view.components.Panel;
 import main.view.enums.AlignHor;
 import main.view.enums.AlignVer;
 import main.view.enums.Display;
-import main.view.components.titleBar.comp.Exit;
-import main.view.components.titleBar.comp.Maximize;
-import main.view.components.titleBar.comp.Minimize;
+import main.view.components.titleBar.elements.Exit;
+import main.view.components.titleBar.elements.Maximize;
+import main.view.components.titleBar.elements.Minimize;
 
 import javax.swing.border.MatteBorder;
 
@@ -17,7 +17,7 @@ public class TitleBar {
 
     public static Panel getInstance(View view){
         Panel titleBar = new Panel(view.getWindowWidth(), titleBarHeight, titleBarPaddingX, titleBarPaddingY, titleBarPaddingBetweenX, titleBarPaddingBetweenY);
-        titleBar.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
+        titleBar.addBorder(true);
         titleBar.setDisplay(Display.flex);
         titleBar.setAlignVer(AlignVer.right);
         titleBar.setAlignHor(AlignHor.center);

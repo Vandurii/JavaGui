@@ -37,6 +37,9 @@ public class Loader {
                     case "float":
                         resMap.put(name, Float.parseFloat(args[2]));
                         break;
+                    case "int":
+                        resMap.put(name, Integer.parseInt(args[2]));
+                        break;
                     case "boolean":
                         resMap.put(name, Boolean.valueOf(args[2]));
                         break;

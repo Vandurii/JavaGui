@@ -23,13 +23,14 @@ import static main.Configuration.*;
 public class ColorPicker extends JFrame {
     private Image image;
 
-    public ColorPicker(int width, int height, String imagePath, View view, SaveColor color) {
+    public ColorPicker(int width, int height, String imagePath, View view, SaveColor<Color> color) {
         Panel mainPanel = new Panel(width, height);
-        mainPanel.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
+        int lineVal = borderLineWidth.getValue();
+        mainPanel.setBorder(new MatteBorder(lineVal, lineVal, lineVal, lineVal, borderLineColor.getValue()));
         mainPanel.setDisplay(Display.block);
 
         main.view.components.Panel titleBar = new Panel(width, titleBarHeight, pickerPaddingX, pickerPaddingY);
-        titleBar.setBorder(new MatteBorder(borderLineWidth, borderLineWidth, borderLineWidth, borderLineWidth, borderLineColor.getValue()));
+        titleBar.setBorder(new MatteBorder(lineVal, lineVal, lineVal, lineVal, borderLineColor.getValue()));
         titleBar.setDisplay(Display.flex);
         titleBar.setAlignVer(AlignVer.right);
         titleBar.setAlignHor(AlignHor.center);
@@ -69,13 +70,13 @@ public class ColorPicker extends JFrame {
         this.setAlwaysOnTop(true);
         this.addMouseListener(mouseListener);
         this.addMouseMotionListener(mouseListener);
-        this.setOpacity(winAlphaComposite.getValue());
+        this.setOpacity(winAlphaComposite.getValue() / 100f);
         this.setSize(width, height);
         this.setVisible(true);
 
         this.add(mainPanel);
 
-        ThemeColor.resetColor(this, primaryThemeColor);
+        ThemeManager.resetColor(this, primaryThemeColor);
     }
 
     public void destroy(){

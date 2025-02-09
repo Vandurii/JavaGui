@@ -82,8 +82,6 @@ public class LayoutManager {
     public static List<List<Component>> createLineList(int paddingX, int paddingBetweenX, AlignVer alignVer, Display display, Container parent){
         List<List<Component>> compLineList = new ArrayList<>();
 
-        //todo
-        //int index = -1;
         int index = 0;
         if(display == Display.block || display == Display.blockInline || display == Display.maxWidth || display == Display.max) index = -1;
 

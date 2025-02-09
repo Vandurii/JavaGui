@@ -2,9 +2,8 @@ package main.view.prefabs;
 
 import main.tools.LayoutManager;
 import main.tools.saver.SaveBoolean;
-import main.tools.saver.SaveFloat;
-import main.view.View;
-import main.view.components.colorPicker.ThemeColor;
+import main.tools.saver.SaveInt;
+import main.view.components.colorPicker.ThemeManager;
 import main.view.interfaces.MethodBody;
 import main.view.components.Panel;
 
@@ -81,27 +80,27 @@ public class Prefabs {
             @Override
             public void mouseExited(MouseEvent e) {
                 button.setOpaque(false);
-                ThemeColor.resetParentColor(button);
+                ThemeManager.resetParentColor(button);
             }
         });
     }
 
-    public static JSlider createSlider(int width, int height, SaveFloat<Float> saveFloat, MethodBody method) {
-        int startValue = (int)(saveFloat.getValue() * 100);
+    public static JSlider createSlider(int width, int height, int maxVal, SaveInt<Integer> saveInt, MethodBody method) {
+        int startValue = saveInt.getValue();
 
-        JSlider slider = new JSlider(0, 100, startValue);
+        JSlider slider = new JSlider(0, maxVal, startValue);
         slider.setSize(width, height);
         slider.setOpaque(false);
 
         ChangeListener changeListener = e -> {
-            saveFloat.setValue(slider.getValue() / 100f);
+            saveInt.setValue(slider.getValue());
             method.cast();
         };
         slider.addChangeListener(changeListener);
         return slider;
     }
 
-    public static JCheckBox createDisabledBox(int size, SaveBoolean<Boolean> saveBol, MethodBody method) {
+    public static JCheckBox createBox(int size, SaveBoolean<Boolean> saveBol, MethodBody method) {
         JCheckBox box = new JCheckBox();
         box.setSelected(saveBol.getValue());
         box.setOpaque(false);
@@ -119,6 +118,40 @@ public class Prefabs {
         box.setSize(size, size);
 
         return box;
+    }
+
+    public static JLabel createLabel(String text, boolean highLight){
+        JLabel label = new JLabel(text);
+        label.setFont(settingsFont);
+        label.setBorder(labelBorder);
+        label.setSize(label.getPreferredSize());
+
+        if(highLight) {
+            label.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    Color color = label.getParent().getBackground();
+                    label.setOpaque(true);
+
+                    if (color.getRed() > buttonThreshold && color.getGreen() > buttonThreshold && color.getBlue() > buttonThreshold) {
+                        color = color.darker();
+                    } else {
+                        color = color.brighter();
+                    }
+
+                    label.setBackground(color);
+                    label.repaint();
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    label.setOpaque(false);
+                    ThemeManager.resetParentColor(label);
+                }
+            });
+        }
+
+        return label;
     }
 
     public static Panel createPanel(int paddingX, int paddingBetweenX, Component ...components){

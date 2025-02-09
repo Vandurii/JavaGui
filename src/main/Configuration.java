@@ -4,7 +4,9 @@ import main.tools.saver.SaveBoolean;
 import main.tools.saver.SaveColor;
 import main.tools.Pather;
 import main.tools.saver.SaveFloat;
+import main.tools.saver.SaveInt;
 
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Configuration {
@@ -20,12 +22,12 @@ public class Configuration {
     public static int pointerSize = 5;
 
     // Theme
-    public static SaveFloat<Float> winAlphaComposite = new SaveFloat<>("opacity", 1f);
+    public static SaveInt<Integer> winAlphaComposite = new SaveInt<>("opacity", 100);
     public static SaveColor<Color> primaryThemeColor = new SaveColor<>("primaryColor", new Color(0.5f, 0.5f, 0.5f, 1f));
     public static SaveColor<Color> secondaryThemeColor = new SaveColor<>("secondaryColor", new Color(0.9f, 0.2f, 0.2f, 1f));
     public static SaveColor<Color> borderLineColor = new SaveColor<>("borderColor", new Color(89, 89, 89));
 
-    public static int borderLineWidth = 1;
+    public static SaveInt<Integer> borderLineWidth = new SaveInt<>("borderLineWidth", 1);
 
     public static int buttonThreshold = 200;
 
@@ -78,8 +80,9 @@ public class Configuration {
     public static Font settingsFont = new Font("Arial", Font.BOLD, 15);
     public static int minOpacityValue = 5;
     public static int sliderWidth = 100;
-    public static int sliderHeight = 30;
+    public static int sliderHeight = 20;
     public static SaveBoolean<Boolean> alwaysOnTop = new SaveBoolean<>("onTop", false);
     public static int checkBoxSize = 25;
     public static String settingsFile = "settings.txt";
+    public static EmptyBorder labelBorder = new EmptyBorder(2,3,2,1);
 }

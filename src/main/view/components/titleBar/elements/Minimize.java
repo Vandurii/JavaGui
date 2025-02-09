@@ -1,4 +1,4 @@
-package main.view.components.titleBar.comp;
+package main.view.components.titleBar.elements;
 
 import main.view.prefabs.Prefabs;
 import main.view.components.colorPicker.ColorPicker;

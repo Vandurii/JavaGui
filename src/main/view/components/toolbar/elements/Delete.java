@@ -1,4 +1,4 @@
-package main.view.components.toolbar.comp;
+package main.view.components.toolbar.elements;
 
 import main.view.prefabs.Prefabs;
 import main.view.View;
