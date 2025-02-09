@@ -3,15 +3,12 @@ package main.view;
 import javax.swing.*;
 import java.awt.*;
 
-import main.view.components.colorPicker.ThemeManager;
+import main.tools.ThemeManager;
 import main.controlls.MainWindowML;
-import main.view.components.Panel;
-import main.view.components.toolbar.Toolbar;
-import main.view.enums.AlignHor;
-import main.view.enums.AlignVer;
-import main.view.enums.Display;
-import main.view.components.titleBar.TitleBar;
-import main.view.interfaces.MethodBody;
+import main.view.elements.Panel;
+import main.view.elements.Toolbar;
+import main.view.enums.DisplayMode;
+import main.view.elements.titleBar.TitleBar;
 
 import static main.Configuration.*;
 
@@ -28,7 +25,7 @@ public class View extends JFrame {
     private Panel mainPanel;
     private Panel titleBar;
     private Panel toolbar;
-    private Panel display;
+    private Panel scene;
 
     public View(){
         windowWidth = INITIAL_WINDOW_WIDTH;
@@ -41,16 +38,16 @@ public class View extends JFrame {
 
         titleBar = TitleBar.getInstance(this);
         toolbar = Toolbar.getInstance(this);
-        display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
-        display.addBorder(false, true, true, true);
+        scene = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
+        scene.addBorder(false, true, true, true);
 
         mainPanel = new Panel(windowWidth, windowHeight);
         mainPanel.addBorder(false, true, true, true);
-        mainPanel.setDisplay(Display.block);
+        mainPanel.setDisplayMode(DisplayMode.block);
 
         mainPanel.add(titleBar);
         mainPanel.add(toolbar);
-        mainPanel.add(display);
+        mainPanel.add(scene);
 
         this.setUndecorated(true);
         this.addMouseListener(mouseListener);
@@ -66,18 +63,11 @@ public class View extends JFrame {
         resetThemeColor();
     }
 
-    public void switchDisplay(MethodBody method){
-        mainPanel.remove(display);
-        display = new Panel(windowWidth, windowHeight - toolbarHeight - titleBarHeight, displayPaddingX, displayPaddingY, displayPaddingBetweenX, displayPaddingBetweenY);
-        display.setDisplay(Display.blockInline);
-        display.setAlignVer(AlignVer.left);
-        display.setAlignHor(AlignHor.top);
-        display.addBorder(false, true, true, true);
-
-        method.cast();
+    public void changeScene(Panel newScene){
+        mainPanel.remove(scene);
+        scene = newScene;
+        mainPanel.add(scene);
         resetThemeColor();
-
-        mainPanel.add(display);
     }
 
     public void setCompLocation(){
@@ -87,8 +77,8 @@ public class View extends JFrame {
         toolbar.setSize(windowWidth, toolbarHeight);
         toolbar.calcComp();
         mainPanel.calcComp();
-        display.setSize(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
-        display.calcComp();
+        scene.setSize(windowWidth, windowHeight - toolbarHeight - titleBarHeight);
+        scene.calcComp();
     }
 
     public boolean isMaximized(){
@@ -100,9 +90,10 @@ public class View extends JFrame {
     }
 
     public void resetThemeColor(){
+        ThemeManager.resetColor(mainPanel, secondaryThemeColor);
         ThemeManager.resetColor(titleBar, primaryThemeColor);
-        ThemeManager.resetColor(display, secondaryThemeColor);
         ThemeManager.resetColor(toolbar, secondaryThemeColor);
+        ThemeManager.resetColor(scene, secondaryThemeColor);
         this.setOpacity(winAlphaComposite.getValue() / 100f);
         mainPanel.repaint();
     }
@@ -127,8 +118,8 @@ public class View extends JFrame {
         setLocation(screenX, screenY);
     }
 
-    public Panel getDisplay(){
-        return  display;
+    public Panel getScene(){
+        return scene;
     }
 
     public int getWindowWidth() {

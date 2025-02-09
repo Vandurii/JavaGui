@@ -1,7 +1,7 @@
-package main.view.components.titleBar.elements;
+package main.view.elements.titleBar.elements;
 
 import main.view.prefabs.Prefabs;
-import main.view.components.colorPicker.ColorPicker;
+import main.tools.ColorPicker;
 import main.view.interfaces.MethodBody;
 import main.view.View;
 

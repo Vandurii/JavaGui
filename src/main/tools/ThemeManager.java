@@ -1,9 +1,9 @@
-package main.view.components.colorPicker;
+package main.tools;
 
 import main.view.View;
 import main.view.interfaces.MethodBody;
 import main.tools.saver.SaveColor;
-import main.view.components.Panel;
+import main.view.elements.Panel;
 
 import java.awt.*;
 

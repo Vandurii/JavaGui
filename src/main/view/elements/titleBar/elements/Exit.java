@@ -1,4 +1,4 @@
-package main.view.components.titleBar.elements;
+package main.view.elements.titleBar.elements;
 
 import main.tools.saver.Saver;
 import main.view.prefabs.Prefabs;

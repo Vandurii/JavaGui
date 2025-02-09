@@ -2,7 +2,7 @@ package main.tools;
 
 import main.view.enums.AlignHor;
 import main.view.enums.AlignVer;
-import main.view.enums.Display;
+import main.view.enums.DisplayMode;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,35 +12,35 @@ import java.util.List;
 
 public class LayoutManager {
 
-    public static void calcComp(int paddingX, int paddingBetweenX, AlignVer alignVer, int paddingY, int paddingBetweenY, AlignHor alignHor, Display display, boolean wrap, Container parent) {
+    public static void calcComp(int paddingX, int paddingBetweenX, AlignVer alignVer, int paddingY, int paddingBetweenY, AlignHor alignHor, DisplayMode displayMode, boolean wrap, Container parent) {
         for (Component c : parent.getComponents()) {
-            switch (display) {
-                case Display.maxWidth:
+            switch (displayMode) {
+                case DisplayMode.maxWidth:
                     c.setSize(parent.getWidth(), c.getHeight());
-                    calc(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, display, wrap, parent);
+                    calc(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, displayMode, wrap, parent);
                     break;
-                case Display.maxHeight:
+                case DisplayMode.maxHeight:
                     c.setSize(c.getWidth(), parent.getHeight());
-                    calc(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, display, wrap, parent);
+                    calc(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, displayMode, wrap, parent);
                     break;
-                case Display.max:
+                case DisplayMode.max:
                     c.setSize(parent.getWidth(), parent.getHeight());
-                    calc(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, display, wrap, parent);
+                    calc(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, displayMode, wrap, parent);
                     break;
-                case Display.flex:
-                case Display.blockInline:
-                case Display.block:
-                    calc(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, display, wrap, parent);
+                case DisplayMode.flex:
+                case DisplayMode.blockInline:
+                case DisplayMode.block:
+                    calc(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, displayMode, wrap, parent);
                     break;
             }
         }
     }
 
-    public static void calc(int paddingX, int paddingBetweenX, AlignVer alignVer, int paddingY, int paddingBetweenY, AlignHor alignHor, Display display, boolean wrap, Container parent){
+    public static void calc(int paddingX, int paddingBetweenX, AlignVer alignVer, int paddingY, int paddingBetweenY, AlignHor alignHor, DisplayMode displayMode, boolean wrap, Container parent){
         List<List<Component>> compLineList;
 
         if(wrap){
-            compLineList = createLineList(paddingX, paddingBetweenX, alignVer, display, parent);
+            compLineList = createLineList(paddingX, paddingBetweenX, alignVer, displayMode, parent);
         }else{
             List<Component> childList = new ArrayList<>(Arrays.asList(parent.getComponents()));
             List<List<Component>> parentList = new ArrayList<>();
@@ -61,7 +61,7 @@ public class LayoutManager {
         while(it.hasNext()){
             List<Component> list = it.next();
 
-            if(display == Display.blockInline){
+            if(displayMode == DisplayMode.blockInline){
                 int freeSpace = parent.getWidth() - findWidest(compLineList);
                 int nextCompX = freeSpace / 2;
                 setCompLocation(list, nextCompX, nextY);
@@ -79,11 +79,11 @@ public class LayoutManager {
         }
     }
 
-    public static List<List<Component>> createLineList(int paddingX, int paddingBetweenX, AlignVer alignVer, Display display, Container parent){
+    public static List<List<Component>> createLineList(int paddingX, int paddingBetweenX, AlignVer alignVer, DisplayMode displayMode, Container parent){
         List<List<Component>> compLineList = new ArrayList<>();
 
         int index = 0;
-        if(display == Display.block || display == Display.blockInline || display == Display.maxWidth || display == Display.max) index = -1;
+        if(displayMode == DisplayMode.block || displayMode == DisplayMode.blockInline || displayMode == DisplayMode.maxWidth || displayMode == DisplayMode.max) index = -1;
 
         int currentWidth = 0;
         if(alignVer == AlignVer.left || alignVer == AlignVer.right) currentWidth = paddingX;
@@ -93,7 +93,7 @@ public class LayoutManager {
 
         for (Component c : components) {
             int width = c.getWidth();
-            if (currentWidth + width <= maxWidth && display != Display.block && display != Display.blockInline) {
+            if (currentWidth + width <= maxWidth && displayMode != DisplayMode.block && displayMode != DisplayMode.blockInline) {
                 currentWidth += width + paddingBetweenX;
             } else {
                 currentWidth = width + paddingX + paddingBetweenX;

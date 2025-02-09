@@ -1,6 +1,6 @@
 package main.view.enums;
 
-public enum Display {
+public enum DisplayMode {
     none,
     flex,
     block,

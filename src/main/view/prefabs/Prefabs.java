@@ -3,9 +3,9 @@ package main.view.prefabs;
 import main.tools.LayoutManager;
 import main.tools.saver.SaveBoolean;
 import main.tools.saver.SaveInt;
-import main.view.components.colorPicker.ThemeManager;
+import main.tools.ThemeManager;
 import main.view.interfaces.MethodBody;
-import main.view.components.Panel;
+import main.view.elements.Panel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

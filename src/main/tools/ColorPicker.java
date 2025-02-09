@@ -1,13 +1,13 @@
-package main.view.components.colorPicker;
+package main.tools;
 
 import main.view.prefabs.Prefabs;
 import main.controlls.ColorPickerML;
 import main.view.interfaces.MethodBody;
 import main.view.View;
-import main.view.components.Panel;
+import main.view.elements.Panel;
 import main.view.enums.AlignHor;
 import main.view.enums.AlignVer;
-import main.view.enums.Display;
+import main.view.enums.DisplayMode;
 import main.tools.saver.SaveColor;
 
 import javax.imageio.ImageIO;
@@ -25,13 +25,12 @@ public class ColorPicker extends JFrame {
 
     public ColorPicker(int width, int height, String imagePath, View view, SaveColor<Color> color) {
         Panel mainPanel = new Panel(width, height);
-        int lineVal = borderLineWidth.getValue();
-        mainPanel.setBorder(new MatteBorder(lineVal, lineVal, lineVal, lineVal, borderLineColor.getValue()));
-        mainPanel.setDisplay(Display.block);
+        mainPanel.addBorder(true);
+        mainPanel.setDisplayMode(DisplayMode.block);
 
-        main.view.components.Panel titleBar = new Panel(width, titleBarHeight, pickerPaddingX, pickerPaddingY);
-        titleBar.setBorder(new MatteBorder(lineVal, lineVal, lineVal, lineVal, borderLineColor.getValue()));
-        titleBar.setDisplay(Display.flex);
+        main.view.elements.Panel titleBar = new Panel(width, titleBarHeight, pickerPaddingX, pickerPaddingY);
+        titleBar.addBorder(true);
+        titleBar.setDisplayMode(DisplayMode.flex);
         titleBar.setAlignVer(AlignVer.right);
         titleBar.setAlignHor(AlignHor.center);
 

@@ -1,7 +1,7 @@
 package main.controlls;
 
-import main.view.components.colorPicker.ThemeManager;
-import main.view.components.colorPicker.ColorPicker;
+import main.tools.ThemeManager;
+import main.tools.ColorPicker;
 import main.tools.saver.SaveColor;
 import main.view.View;
 

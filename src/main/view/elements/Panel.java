@@ -1,12 +1,11 @@
-package main.view.components;
+package main.view.elements;
 
 import main.tools.LayoutManager;
 import main.view.enums.AlignHor;
 import main.view.enums.AlignVer;
-import main.view.enums.Display;
+import main.view.enums.DisplayMode;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 
@@ -14,7 +13,7 @@ import static main.Configuration.borderLineColor;
 import static main.Configuration.borderLineWidth;
 
 public class Panel extends JPanel {
-    private Display display;
+    private DisplayMode displayMode;
     private AlignVer alignVer;
     private AlignHor alignHor;
 
@@ -51,7 +50,7 @@ public class Panel extends JPanel {
 
     public void init(){
         super.setLayout(null);
-        this.display = Display.flex;
+        this.displayMode = DisplayMode.flex;
         this.alignVer = AlignVer.left;
         this.alignHor = AlignHor.top;
         this.wrap = true;
@@ -59,7 +58,7 @@ public class Panel extends JPanel {
     }
 
     public void calcComp(){
-        LayoutManager.calcComp(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, display, wrap, this);
+        LayoutManager.calcComp(paddingX, paddingBetweenX, alignVer, paddingY, paddingBetweenY, alignHor, displayMode, wrap, this);
     }
 
     @Override
@@ -92,8 +91,8 @@ public class Panel extends JPanel {
         this.setBorder(new MatteBorder(top ? v : 0, left ? v: 0, bottom ? v : 0, right ? v : 0, borderLineColor.getValue()));
     }
 
-    public void setDisplay(Display display){
-        this.display = display;
+    public void setDisplayMode(DisplayMode displayMode){
+        this.displayMode = displayMode;
     }
 
     public void setAlignVer(AlignVer alignVer){
