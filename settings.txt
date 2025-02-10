@@ -1,6 +1,6 @@
 opacity:int:100
-primaryColor:color:255:166:0:255
-secondaryColor:color:226:226:224:255
-borderColor:color:110:201:245:217
+primaryColor:color:245:41:40:252
+secondaryColor:color:250:251:248:252
+borderColor:color:128:128:3:128
 borderLineWidth:int:1
-onTop:boolean:false
+onTop:boolean:true
