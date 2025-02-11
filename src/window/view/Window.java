@@ -3,6 +3,8 @@ package window.view;
 import javax.swing.*;
 import java.awt.*;
 
+import window.enums.AlignHor;
+import window.enums.AlignVer;
 import window.tools.Loader;
 import window.tools.ThemeManager;
 import window.controlls.MainWindowML;
@@ -10,7 +12,9 @@ import window.view.elements.Panel;
 import window.view.elements.Toolbar;
 import window.enums.DisplayMode;
 import window.view.elements.TitleBar;
-import window.view.scenes.MainScene;
+import window.view.prefabs.Prefabs;
+import window.view.scenes.EmptySceen;
+import window.view.scenes.Scene;
 
 import static window.Configuration.*;
 
@@ -28,7 +32,9 @@ public class Window extends JFrame {
     private Panel mainPanel;
     private Panel titleBar;
     private Panel toolbar;
+
     private Panel scene;
+    private Scene mainScene;
 
     public Window(){
         windowWidth = INITIAL_WINDOW_WIDTH;
@@ -50,8 +56,14 @@ public class Window extends JFrame {
 
         titleBar = new TitleBar().createTitleBar(this);
         toolbar = new Toolbar().crateToolbar(this);
-        scene = new MainScene().createScene(this);
-        scene.addBorder(false, true, true, true);
+
+        mainScene = new EmptySceen(this);
+        mainScene.setDisplayMode(DisplayMode.blockInline);
+        mainScene.setAlignVer(AlignVer.center);
+        mainScene.setAlignHor(AlignHor.center);
+
+        JLabel welcome = Prefabs.createLabel("Welcome to Pretty Window!", false);
+        mainScene.add(welcome);
 
         mainPanel = new Panel(windowWidth, windowHeight);
         mainPanel.addBorder(false, true, true, true);
@@ -60,7 +72,7 @@ public class Window extends JFrame {
 
         mainPanel.add(titleBar);
         mainPanel.add(toolbar);
-        mainPanel.add(scene);
+        mainPanel.add(mainScene);
 
         this.setUndecorated(true);
         this.addMouseListener(mouseListener);
@@ -73,10 +85,11 @@ public class Window extends JFrame {
 
         this.add(mainPanel);
 
+        scene = mainScene;
         resetThemeColor();
     }
 
-    public void changeScene(Panel newScene){
+    private void changeScene(Panel newScene){
         mainPanel.remove(scene);
      //   clear();
         scene = newScene;
@@ -84,14 +97,23 @@ public class Window extends JFrame {
         resetThemeColor();
     }
 
-    public void toggleScene(Panel newScene, Panel oldScene){
+    public void toggleScene(Panel newScene){
         if(mainPanel.getComponent(mainPanel.getComponentCount() -1) instanceof Panel panel){
             if(panel.getName().equals(newScene.getName())){
-                changeScene(oldScene);
+                changeScene(mainScene);
             }else{
                 changeScene(newScene);
             }
         }
+    }
+
+    public void switchToMainScene(){
+        changeScene(mainScene);
+    }
+
+    public void loadScene(Scene scene){
+        this.mainScene = scene;
+        changeScene(mainScene);
     }
 
     public void setCompLocation(){

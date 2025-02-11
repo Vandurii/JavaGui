@@ -12,20 +12,30 @@ import window.interfaces.MethodBody;
 import window.view.Window;
 import javax.swing.*;
 
-import java.awt.*;
-
 import static window.Configuration.*;
 
 public class SettingsScene extends Scene {
 
-    public Panel createScene(Window window) {
-        Dimension dimension = window.getSceneDimension();
-        scene = new Panel(dimension.width, dimension.height, displayPaddingX, displayPaddingY, displayPaddingBetweenX, displayPaddingBetweenY);
-        scene.setDisplayMode(DisplayMode.blockInline);
-        scene.setAlignVer(AlignVer.left);
-        scene.setAlignHor(AlignHor.top);
-        scene.addBorder(false, true, true, true);
-        scene.setName("settings");
+    public SettingsScene(Window window) {
+        super(window);
+        customize(window);
+    }
+
+    public SettingsScene(int paddingX, int paddingY, Window window) {
+        super(paddingX, paddingY, window);
+        customize(window);
+    }
+
+    public SettingsScene(int paddingX, int paddingY, int paddingBetweenX, int paddingBetweenY, Window window) {
+        super(paddingX, paddingY, paddingBetweenX, paddingBetweenY, window);
+        customize(window);
+    }
+
+    public void customize(Window window) {
+        this.setDisplayMode(DisplayMode.blockInline);
+        this.setAlignVer(AlignVer.left);
+        this.setAlignHor(AlignHor.top);
+        this.setName("settings");
 
         // opacitySliderPanel
         JLabel opacityLabelPercentage = Prefabs.createLabel(winAlphaComposite.getValue() + "%  ", false);
@@ -77,20 +87,16 @@ public class SettingsScene extends Scene {
         JButton borderColor = Prefabs.createTextButton("Border Line Color", ThemeManager.changeColor(borderLineColor, window));
 
         // save option
-        JButton save = Prefabs.createColoredTextButton("Save", () ->{
-            Saver.save();
-            window.changeScene(new MainScene().createScene(window));}, primaryThemeColor);
+        JButton save = Prefabs.createColoredTextButton("Save", () ->{Saver.save();window.switchToMainScene();}, primaryThemeColor);
 
         // add elements
-        scene.add(alwaysOnTopPanel);
-        scene.add(primaryColor);
-        scene.add(secondaryColor);
-        scene.add(borderColor);
-        scene.add(linePanel);
-        scene.add(sliderPanel);
-        scene.add(new Panel(0, 20));
-        scene.add(save);
-
-        return scene;
+        this.add(alwaysOnTopPanel);
+        this.add(primaryColor);
+        this.add(secondaryColor);
+        this.add(borderColor);
+        this.add(linePanel);
+        this.add(sliderPanel);
+        this.add(new Panel(0, 20));
+        this.add(save);
     }
 }

@@ -6,7 +6,7 @@ import window.enums.AlignHor;
 import window.enums.AlignVer;
 import window.enums.DisplayMode;
 import window.view.prefabs.Prefabs;
-import window.view.scenes.MainScene;
+import window.view.scenes.EmptySceen;
 import window.view.scenes.SettingsScene;
 
 import javax.swing.*;
@@ -26,9 +26,8 @@ public class Toolbar {
         toolbar.setWrap(false);
 
         JButton settingsButton = Prefabs.createImageButton(toolbarButWidth, toolbarButHeight, toolbarButScale, settingsButtonPath, () -> {
-            Panel newScene = new SettingsScene().createScene(window);
-            Panel oldScene = new MainScene().createScene(window);
-            window.toggleScene(newScene, oldScene);
+            Panel newScene = new SettingsScene(displayPaddingX, displayPaddingY, displayPaddingBetweenX, displayPaddingBetweenY, window);
+            window.toggleScene(newScene);
         });
         toolbar.add(settingsButton);
 
